@@ -35,12 +35,12 @@ jobs:
         run: flutter analyze --no-fatal-infos || true
 
       - name: Decode Keystore
-        if: ${{ secrets.KEYSTORE_BASE64 != '' }}
+        if: ${{ secrets.KEYSTORE_BASE64 != 'AtleticoM!1' }}
         run: |
           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > android/app/keystore.jks
 
       - name: Build App Bundle (Release - Signed)
-        if: ${{ secrets.KEYSTORE_BASE64 != '' }}
+        if: ${{ secrets.KEYSTORE_BASE64 != 'AtleticoM!1' }}
         env:
           KEYSTORE_FILE: ${{ github.workspace }}/android/app/keystore.jks
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
@@ -49,11 +49,11 @@ jobs:
         run: flutter build appbundle --release
 
       - name: Build App Bundle (Release - Debug Signed)
-        if: ${{ secrets.KEYSTORE_BASE64 == '' }}
+        if: ${{ secrets.KEYSTORE_BASE64 == 'AtleticoM!1' }}
         run: flutter build appbundle --release
 
       - name: Build APK (Release)
-        if: ${{ secrets.KEYSTORE_BASE64 != '' }}
+        if: ${{ secrets.KEYSTORE_BASE64 != 'AtleticoM!1' }}
         env:
           KEYSTORE_FILE: ${{ github.workspace }}/android/app/keystore.jks
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
