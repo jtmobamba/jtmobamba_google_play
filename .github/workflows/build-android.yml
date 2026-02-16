@@ -1,4 +1,5 @@
 name: Build Android App Bundle
+# Version 2.0 - With app signing support
 
 on:
   push:
