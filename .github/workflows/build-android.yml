@@ -1,5 +1,5 @@
 name: Build Android App Bundle
-# Version 5.0 - Fixed Gradle daemon issue
+# Version 6.0 - Use Flutter build command
 
 on:
   push:
@@ -42,11 +42,7 @@ jobs:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-          GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2 -Dorg.gradle.parallel=false"
-          JAVA_OPTS: "-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError"
-        run: |
-          cd android
-          ./gradlew bundleRelease --no-daemon --max-workers=2 -Dorg.gradle.jvmargs="-Xmx2048m -XX:MaxMetaspaceSize=512m"
+        run: flutter build appbundle --release
 
       - name: Upload App Bundle
         uses: actions/upload-artifact@v4
